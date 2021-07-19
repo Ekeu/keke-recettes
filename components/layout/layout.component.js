@@ -1,9 +1,11 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Hero from '../hero/hero.component';
 import Navbar from '../navbar/navbar.component';
 import Footer from '../footer/footer.component';
 
 export default function Layout({ title, keywords, description, children }) {
+  const router = useRouter();
   return (
     <div>
       <Head>
@@ -18,7 +20,7 @@ export default function Layout({ title, keywords, description, children }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Navbar />
-      <Hero />
+      {router.pathname === '/' && <Hero />}
       {children}
       <Footer />
     </div>
