@@ -1,40 +1,71 @@
+import BlockContent from '@sanity/block-content-to-react';
+
 import Layout from '@/components/layout/layout.component';
 import PatternRect from '@/components/patterns/pattern-rect.component';
 import ContentHeader from '@/components/content/content-header.component';
 import ContentRecipeImage from '@/components/content/content-recipe-image.component';
 import ContentAuthor from '@/components/content/content-author.component';
 
-import { getAllRecipes, getRecipeBySlug } from '@/lib/api';
+import { getAllRecipes, getRecipeBySlug, urlFor } from '@/lib/api';
+
+const serializers = {
+  types: {
+    code: (props) => (
+      <pre data-language={props.node.language}>
+        <code>{props.node.code}</code>
+      </pre>
+    ),
+    image: ({ node: { asset, alt } }) => (
+      <figure>
+        <img
+          className='w-full rounded-lg'
+          src={urlFor(asset.url).height(873).width(1310).fit('max').url()}
+          alt={alt}
+          width={1310}
+          height={873}
+        />
+      </figure>
+    ),
+  },
+};
 
 export default function RecipePage({ recipe }) {
   return (
     <Layout>
-      <div className='bg-white overflow-hidden'>
-        <div className='relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8'>
-          <div className='hidden lg:block bg-blue-gray-50 absolute top-0 bottom-0 left-3/4 w-screen' />
-          <ContentHeader category={recipe.category} title={recipe.title} />
-          <div className='mt-8 lg:grid lg:grid-cols-2 lg:gap-8'>
-            <div className='relative lg:row-start-1 lg:col-start-2'>
-              <PatternRect
-                className='hidden lg:block absolute top-0 right-0 -mt-20 -mr-20'
-                id='de316486-4a29-4312-bdfc-fbce2132a2c1'
-              />
-              <ContentRecipeImage
-                coverImage={recipe.coverImage}
-                title={recipe.title}
-              />
-              <div className='mt-14 relative text-base max-w-prose mx-auto lg:mt-16 lg:max-w-none'>
-                <ContentAuthor
-                  author={recipe.author}
-                  updatedAt={recipe._updatedAt}
-                />
-              </div>
-            </div>
-            <div className='mt-8 lg:mt-0'>
-              <div className='mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1'>
-                {/* CONTENT */}
-              </div>
-            </div>
+      <div className='relative py-16 bg-white overflow-hidden'>
+        <div className='hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full'>
+          <div
+            className='relative h-full text-lg max-w-prose mx-auto'
+            aria-hidden='true'
+          >
+            <PatternRect
+              className='absolute top-12 left-full transform translate-x-32'
+              id='74b3fd99-0a6f-4271-bef2-e80eeafdf357'
+            />
+            <PatternRect
+              className='absolute top-1/2 right-full transform -translate-y-1/2 -translate-x-32'
+              id='f210dbf6-a58d-4871-961e-36d5016a0f49'
+            />
+            <PatternRect
+              className='absolute bottom-12 left-full transform translate-x-32'
+              id='d3eb07ae-5182-43e6-857d-35c643af9034'
+            />
+          </div>
+        </div>
+        <div className='relative px-4 sm:px-6 lg:px-8'>
+          <div className='text-lg max-w-4xl mx-auto'>
+            <ContentHeader category={recipe.category} title={recipe.title} />
+            <ContentAuthor
+              author={recipe.author}
+              updatedAt={recipe._updatedAt}
+            />
+            <ContentRecipeImage
+              coverImage={urlFor(recipe.coverImage).url()}
+              title={recipe.title}
+            />
+          </div>
+          <div className='mt-6 prose prose-indigo prose-lg text-blue-gray-500 mx-auto font-hind'>
+            <BlockContent blocks={recipe.content} serializers={serializers} />
           </div>
         </div>
       </div>

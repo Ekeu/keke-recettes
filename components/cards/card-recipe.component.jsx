@@ -1,6 +1,10 @@
 import Link from 'next/link';
-
 import moment from 'moment';
+import 'moment/locale/fr';
+
+moment.locale('fr');
+
+import { urlFor } from '@/lib/api';
 
 export default function CardRecipe({ recipe }) {
   const {
@@ -11,12 +15,11 @@ export default function CardRecipe({ recipe }) {
     description,
     author,
     _updatedAt,
-    readingTime,
   } = recipe;
   return (
     <div className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
       <div className='flex-shrink-0'>
-        <img className='h-48 w-full object-cover' src={coverImage} alt='' />
+        <img className='h-48 w-full object-cover' src={urlFor(coverImage).url()} alt={title} />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>
@@ -57,8 +60,6 @@ export default function CardRecipe({ recipe }) {
               <time dateTime={_updatedAt}>
                 {moment(_updatedAt).format('ll')}
               </time>
-              <span aria-hidden='true'>&middot;</span>
-              <span>{readingTime} de lecture</span>
             </div>
           </div>
         </div>
