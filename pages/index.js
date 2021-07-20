@@ -1,9 +1,23 @@
+import { useState } from 'react';
+
 import Layout from '@/components/layout/layout.component';
 import CardRecipe from '@/components/cards/card-recipe.component';
+import CardListRecipe from '@/components/cards/card-recipe-simple.component';
+import FilteringMenu from '@/components/filtering-menu/filtering-menu.component';
 
 import { getAllRecipes } from '@/lib/api';
 
 export default function Home({ recipes }) {
+  const [filter, setFilter] = useState({
+    view: {
+      list: false,
+    },
+  });
+
+  const handleChangeView = (option, value) => {
+    setFilter({...filter, [option]: value})
+  }
+
   return (
     <Layout>
       <main>
@@ -21,14 +35,20 @@ export default function Home({ recipes }) {
                 libero labore natus atque, ducimus sed.
               </p>
             </div>
-            <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-              {recipes.map((recipe) => (
-                <CardRecipe key={recipe._id} recipe={recipe} />
-              ))}
-            </div>
-            <div className='mt-12 grid gap-16 pt-12 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12'>
-              {/* CARD RECIPE SIMPLE */}
-            </div>
+            <FilteringMenu filter={filter} onChangeView={handleChangeView} />
+            {filter.view.list ? (
+              <div className='mt-12 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12'>
+                {recipes.map((recipe) => (
+                  <CardListRecipe key={recipe._id} recipe={recipe} />
+                ))}
+              </div>
+            ) : (
+              <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
+                {recipes.map((recipe) => (
+                  <CardRecipe key={recipe._id} recipe={recipe} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </main>
