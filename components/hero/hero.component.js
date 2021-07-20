@@ -33,7 +33,10 @@ export default function Hero() {
           <div className='py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2'>
             <div className='hidden sm:block'>
               <div className='absolute inset-y-0 left-1/2 w-screen bg-blue-gray-50 rounded-l-3xl lg:left-80 lg:right-0 lg:w-full' />
-              <PatternRect />
+              <PatternRect
+                className='absolute top-8 right-1/2 -mr-3 lg:m-0 lg:left-0'
+                id='837c3e70-6c3a-44e6-8854-cc48c737b659'
+              />
             </div>
             <div className='relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:max-w-none lg:h-full lg:pl-12'>
               <Image

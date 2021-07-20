@@ -1,7 +1,7 @@
-export default function PatternRect({ color }) {
+export default function PatternRect({ color, className, id }) {
   return (
     <svg
-      className='absolute top-8 right-1/2 -mr-3 lg:m-0 lg:left-0'
+      className={className}
       width={404}
       height={392}
       fill='none'
@@ -9,7 +9,7 @@ export default function PatternRect({ color }) {
     >
       <defs>
         <pattern
-          id='837c3e70-6c3a-44e6-8854-cc48c737b659'
+          id={id}
           x={0}
           y={0}
           width={20}
@@ -26,11 +26,7 @@ export default function PatternRect({ color }) {
           />
         </pattern>
       </defs>
-      <rect
-        width={404}
-        height={392}
-        fill='url(#837c3e70-6c3a-44e6-8854-cc48c737b659)'
-      />
+      <rect width={404} height={392} fill={`url(#${id})`} />
     </svg>
   );
 }
