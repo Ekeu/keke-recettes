@@ -6,17 +6,20 @@ import CardListRecipe from '@/components/cards/card-recipe-simple.component';
 import FilteringMenu from '@/components/filtering-menu/filtering-menu.component';
 
 import { getAllRecipes } from '@/lib/api';
+import { useGetRecipes } from '@/utils/swr';
 
-export default function Home({ recipes }) {
+export default function Home({ recipes: initialSWRData }) {
   const [filter, setFilter] = useState({
     view: {
       list: false,
     },
   });
 
+  const { data: recipes, error } = useGetRecipes(initialSWRData);
+
   const handleChangeView = (option, value) => {
-    setFilter({...filter, [option]: value})
-  }
+    setFilter({ ...filter, [option]: value });
+  };
 
   return (
     <Layout>
@@ -62,7 +65,7 @@ export default function Home({ recipes }) {
  * Will create static page
  */
 export async function getStaticProps() {
-  const recipes = await getAllRecipes();
+  const recipes = await getAllRecipes({ offset: 0 });
   return {
     props: {
       recipes,

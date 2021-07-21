@@ -5,10 +5,10 @@ export const RECIPE_CATEGORIES = [
   },
   {
     value: 'recette moyenne',
-    color: 'bg-red-200 text-red-800',
+    color: 'bg-yellow-200 text-yellow-800',
   },
   {
     value: 'recette difficile',
-    color: 'bg-yellow-200 text-yellow-800',
+    color: 'bg-red-200 text-red-800',
   },
 ];
