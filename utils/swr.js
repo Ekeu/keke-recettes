@@ -4,6 +4,14 @@ import useSWR from 'swr';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export const useGetRecipes = (initialSWRData) => {
-  return useSWR(`/api/recipes`, fetcher, { initialData: initialSWRData });
+export const useGetRecipes = ({ offset, filter }, initialSWRData) => {
+  return useSWR(
+    `/api/recipes?offset=${offset || 0}&sort=${
+      filter.sort.asc ? 'asc' : 'desc'
+    }`,
+    fetcher,
+    {
+      initialData: initialSWRData,
+    }
+  );
 };

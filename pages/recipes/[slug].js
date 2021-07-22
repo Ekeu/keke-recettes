@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import BlockContent from '@sanity/block-content-to-react';
 
 import Layout from '@/components/layout/layout.component';
+import Loader from '@/components/loader/loader.component';
 import PatternRect from '@/components/patterns/pattern-rect.component';
 import ContentHeader from '@/components/content/content-header.component';
 import ContentRecipeImage from '@/components/content/content-recipe-image.component';
@@ -30,6 +32,19 @@ const serializers = {
 };
 
 export default function RecipePage({ recipe }) {
+  const router = useRouter;
+
+  if (router.isFallback) {
+    return (
+      <Loader
+        containerClassName='my-60'
+        className='py-8 px-4 sm:px-10'
+        size={'h-12 w-12'}
+        color={'text-rose-500'}
+      />
+    );
+  }
+
   return (
     <Layout>
       <div className='relative py-16 bg-white overflow-hidden'>
@@ -91,6 +106,6 @@ export async function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
