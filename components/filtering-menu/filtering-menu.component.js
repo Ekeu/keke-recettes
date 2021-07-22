@@ -1,7 +1,11 @@
 import {
   ViewGridIcon as ViewGridIconSolid,
   ViewListIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
 } from '@heroicons/react/solid';
+
+import FilterButton from '../button/button-filter.component';
 
 export default function FilteringMenu({ filter, onChangeView }) {
   return (
@@ -9,34 +13,34 @@ export default function FilteringMenu({ filter, onChangeView }) {
       <main className='flex-1 overflow-y-auto'>
         <div className='pt-8 max-w-full mx-auto'>
           <div className='mt-3 sm:mt-2'>
-            <div className='hidden sm:block'>
+            <div className=' sm:block'>
               <div className='flex items-center border-b border-rose-100 pb-3'>
-                <div className='hidden bg-rose-100 p-0.5 rounded-lg items-center sm:flex'>
-                  <button
-                    type='button'
-                    onClick={() =>
-                      onChangeView('view', { list: !filter.view.list })
-                    }
-                    className={`p-1.5 rounded-md text-rose-400 ${filter.view.list ? 'bg-white shadow-sm' : 'hover:bg-rose-200 hover:shadow-sm'} focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500`}
-                  >
-                    <ViewListIcon className='h-5 w-5' aria-hidden='true' />
-                    <span className='sr-only'>
-                      Utiliser l'affichage en liste
-                    </span>
-                  </button>
-                  <button
-                    type='button'
-                    onClick={() =>
-                      onChangeView('view', { list: !filter.view.list })
-                    }
-                    className={`ml-0.5 p-1.5 ${!filter.view.list ? 'bg-white shadow-sm' : 'hover:bg-rose-200 hover:shadow-sm'} rounded-md text-rose-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500`}
-                  >
-                    <ViewGridIconSolid className='h-5 w-5' aria-hidden='true' />
-                    <span className='sr-only'>
-                      Utiliser l'affichage en grille
-                    </span>
-                  </button>
-                </div>
+                <FilterButton
+                  onClick={() =>
+                    onChangeView('view', { list: !filter.view.list })
+                  }
+                  textColor='text-rose-400'
+                  filterAttribute={filter.view.list}
+                  bgHoverColor='hover:bg-rose-200'
+                  FirstSortIcon={ViewListIcon}
+                  SecondSortIcon={ViewGridIconSolid}
+                  firstSRDescriptionText="Utiliser l'affichage en liste"
+                  secondSRDescriptionText="Utiliser l'affichage en grille"
+                  constainerClassName='bg-rose-100'
+                />
+                <FilterButton
+                  onClick={() =>
+                    onChangeView('sort', { asc: !filter.sort.asc })
+                  }
+                  textColor='text-violet-400'
+                  filterAttribute={filter.sort.asc}
+                  bgHoverColor='hover:bg-violet-200'
+                  FirstSortIcon={SortAscendingIcon}
+                  SecondSortIcon={SortDescendingIcon}
+                  firstSRDescriptionText='Trier par ordre croissant'
+                  secondSRDescriptionText='Trier par ordre décroissant'
+                  containerClassName='ml-4 bg-violet-100 '
+                />
               </div>
             </div>
           </div>

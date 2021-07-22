@@ -1,21 +1,31 @@
 import { useState } from 'react';
 
 import Layout from '@/components/layout/layout.component';
-import CardRecipe from '@/components/cards/card-recipe.component';
-import CardListRecipe from '@/components/cards/card-recipe-simple.component';
+import Button from '@/components/button/button.component';
 import FilteringMenu from '@/components/filtering-menu/filtering-menu.component';
 
 import { getAllRecipes } from '@/lib/api';
-import { useGetRecipes } from '@/utils/swr';
+import { useGetRecipesPages } from '@/utils/pagination';
 
-export default function Home({ recipes: initialSWRData }) {
+export default function Home({ recipes }) {
   const [filter, setFilter] = useState({
     view: {
       list: false,
     },
+    sort: {
+      asc: false,
+    },
   });
 
-  const { data: recipes, error } = useGetRecipes(initialSWRData);
+  /**
+   * loadMore => function which executes the withSR cb fnc
+   * isLoadingMore => true when making request to fetch data
+   * isReachingEnd => true when all data has been loaded
+   */
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetRecipesPages({
+    recipes,
+    filter,
+  });
 
   const handleChangeView = (option, value) => {
     setFilter({ ...filter, [option]: value });
@@ -39,19 +49,16 @@ export default function Home({ recipes: initialSWRData }) {
               </p>
             </div>
             <FilteringMenu filter={filter} onChangeView={handleChangeView} />
-            {filter.view.list ? (
-              <div className='mt-12 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12'>
-                {recipes.map((recipe) => (
-                  <CardListRecipe key={recipe._id} recipe={recipe} />
-                ))}
-              </div>
-            ) : (
-              <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-                {recipes.map((recipe) => (
-                  <CardRecipe key={recipe._id} recipe={recipe} />
-                ))}
-              </div>
-            )}
+            {pages}
+            <div className='text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8'>
+              <Button
+                onClick={loadMore}
+                disabled={isReachingEnd}
+                loading={isLoadingMore}
+              >
+                Plus de recettes
+              </Button>
+            </div>
           </div>
         </div>
       </main>
@@ -65,7 +72,7 @@ export default function Home({ recipes: initialSWRData }) {
  * Will create static page
  */
 export async function getStaticProps() {
-  const recipes = await getAllRecipes({ offset: 0 });
+  const recipes = await getAllRecipes({ offset: 0, sort: 'desc' });
   return {
     props: {
       recipes,
