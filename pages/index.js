@@ -3,7 +3,11 @@ import { useState, Fragment } from 'react';
 import Layout from '@/components/layout/layout.component';
 import Button from '@/components/button/button.component';
 import Banner from '@/components/banner/banner.component';
+import RecipesDisplay from '@/components/recipes-display/recipes-display.component';
 import FilteringMenu from '@/components/filtering-menu/filtering-menu.component';
+import CardRecipeSkeleton from '@/components/cards/card-recipe-skeleton.component';
+import CardListRecipeSkeleton from '@/components/cards/card-recipe-simple-skeleton.component';
+import GridContainer from '@/components/grid-container/grid-container.component';
 
 import { getAllRecipes } from '@/lib/api';
 import { useGetRecipesPages } from '@/utils/pagination';
@@ -18,12 +22,7 @@ export default function Home({ recipes, preview }) {
     },
   });
 
-  /**
-   * loadMore => function which executes the withSR cb fnc
-   * isLoadingMore => true when making request to fetch data
-   * isReachingEnd => true when all data has been loaded
-   */
-  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetRecipesPages({
+  const { data, size, setSize, hitEnd, isValidating } = useGetRecipesPages({
     recipes,
     filter,
   });
@@ -63,17 +62,31 @@ export default function Home({ recipes, preview }) {
                 </p>
               </div>
               <FilteringMenu filter={filter} onChangeView={handleChangeView} />
-              {pages}
+              <RecipesDisplay data={data || [recipes]} filter={filter} />
+              {isValidating ? (
+                filter.view.list ? (
+                  <GridContainer className='gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12'>
+                    {[...Array(3)].map((_, i) => (
+                      <CardListRecipeSkeleton key={i + 'List'} />
+                    ))}
+                  </GridContainer>
+                ) : (
+                  <GridContainer className='max-w-lg mx-auto gap-5 lg:grid-cols-3 lg:max-w-none'>
+                    {[...Array(3)].map((_, i) => (
+                      <CardRecipeSkeleton key={i + 'Card'} />
+                    ))}
+                  </GridContainer>
+                )
+              ) : null}
               <div className='text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8'>
                 <Button
-                  onClick={loadMore}
-                  disabled={isReachingEnd}
-                  loading={isLoadingMore}
+                  onClick={() => setSize(size + 1)}
+                  disabled={hitEnd}
+                  loading={isValidating}
                 >
                   Plus de recettes
                 </Button>
               </div>
-              <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'></div>
             </div>
           </div>
         </main>

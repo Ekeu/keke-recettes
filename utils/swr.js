@@ -15,3 +15,5 @@ export const useGetRecipes = ({ offset, filter }, initialSWRData) => {
     }
   );
 };
+
+export const getRecipes = url => fetcher(url)
