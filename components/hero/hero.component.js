@@ -11,8 +11,8 @@ export default function Hero() {
             <div>
               <img
                 className='h-16 w-16'
-                src='/assets/images/keke_cook_logo.svg'
-                alt='Keke Cook'
+                src='/assets/images/keke-recettes.svg'
+                alt='Keke Recettes'
               />
             </div>
             <div className='mt-10'>

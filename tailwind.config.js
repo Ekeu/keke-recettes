@@ -4,7 +4,6 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    typography: (theme) => ({}),
     extend: {
       fontFamily: {
         hind: ['Hind', 'sans-serif'],
@@ -36,7 +35,17 @@ module.exports = {
       typography: (theme) => ({
         dark: {
           css: {
-            color: 'white',
+            color: theme('colors.blue-gray.300'),
+            h3: {
+              color: theme('colors.blue-gray.100'),
+            },
+            h4: {
+              color: theme('colors.blue-gray.100'),
+            },
+            blockquote: {
+              color: theme('colors.blue-gray.300'),
+              borderLeftColor: theme('colors.blue-gray.700'),
+            },
           },
         },
       }),

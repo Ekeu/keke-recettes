@@ -5,25 +5,29 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 import { urlFor } from '@/lib/api';
+import { RECIPE_CATEGORIES } from '@/constants/categories.contants';
 
 export default function CardRecipe({ recipe }) {
-  const {
-    coverImage,
-    category,
-    slug,
-    title,
-    description,
-    author,
-    _updatedAt,
-  } = recipe;
+  const { coverImage, category, slug, title, description, author, _updatedAt } =
+    recipe;
   return (
     <div className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
       <div className='flex-shrink-0'>
-        <img className='h-48 w-full object-cover' src={urlFor(coverImage).url()} alt={title} />
+        <img
+          className='h-48 w-full object-cover'
+          src={urlFor(coverImage).url()}
+          alt={title}
+        />
       </div>
       <div className='flex-1 bg-white dark:bg-blue-gray-700 p-6 flex flex-col justify-between'>
         <div className='flex-1'>
-          <p className='text-sm font-medium font-hind text-rose-500 dark:text-white'>
+          <p
+            className={`text-sm font-medium font-hind ${
+              RECIPE_CATEGORIES.find(
+                (cat) => cat.value === category
+              ).color.split(' ')[1]
+            }`}
+          >
             <span className='capitalize'>{category}</span>
           </p>
           <Link
