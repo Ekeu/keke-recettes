@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
@@ -32,10 +32,27 @@ module.exports = {
         0: '0ms',
         2000: '2000ms',
       },
+      typography: (theme) => ({
+        dark: {
+          css: {
+            color: theme('colors.blue-gray.300'),
+            h3: {
+              color: theme('colors.blue-gray.100'),
+            },
+            h4: {
+              color: theme('colors.blue-gray.100'),
+            },
+            blockquote: {
+              color: theme('colors.blue-gray.300'),
+              borderLeftColor: theme('colors.blue-gray.700'),
+            },
+          },
+        },
+      }),
     },
   },
   variants: {
-    extend: {},
+    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),

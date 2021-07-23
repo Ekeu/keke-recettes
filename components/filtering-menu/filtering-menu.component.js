@@ -14,12 +14,12 @@ export default function FilteringMenu({ filter, onChangeView }) {
         <div className='pt-8 max-w-full mx-auto'>
           <div className='mt-3 sm:mt-2'>
             <div className=' sm:block'>
-              <div className='flex items-center border-b border-rose-100 pb-3'>
+              <div className='flex items-center border-b border-rose-100 dark:border-blue-gray-700 pb-3'>
                 <FilterButton
                   onClick={() =>
                     onChangeView('view', { list: !filter.view.list })
                   }
-                  textColor='text-rose-400'
+                  textColor='text-rose-400 dark:text-rose-500'
                   filterAttribute={filter.view.list}
                   bgHoverColor='hover:bg-rose-200'
                   FirstSortIcon={ViewListIcon}
@@ -32,7 +32,7 @@ export default function FilteringMenu({ filter, onChangeView }) {
                   onClick={() =>
                     onChangeView('sort', { asc: !filter.sort.asc })
                   }
-                  textColor='text-violet-400'
+                  textColor='text-violet-400 dark:text-violet-500'
                   filterAttribute={filter.sort.asc}
                   bgHoverColor='hover:bg-violet-200'
                   FirstSortIcon={SortAscendingIcon}
