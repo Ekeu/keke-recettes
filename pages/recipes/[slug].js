@@ -32,22 +32,24 @@ const serializers = {
 };
 
 export default function RecipePage({ recipe }) {
-  const router = useRouter;
+  const router = useRouter();
 
   if (router.isFallback) {
     return (
-      <Loader
-        containerClassName='my-60'
-        className='py-8 px-4 sm:px-10'
-        size={'h-12 w-12'}
-        color={'text-rose-500'}
-      />
+      <Layout>
+        <Loader
+          containerClassName='my-60'
+          className='py-8 px-4 sm:px-10'
+          size={'h-12 w-12'}
+          color={'text-rose-500'}
+        />
+      </Layout>
     );
   }
 
   return (
     <Layout>
-      <div className='relative py-16 bg-white overflow-hidden'>
+      <div className='relative py-16 bg-white dark:bg-blue-gray-800 overflow-hidden'>
         <div className='hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full'>
           <div
             className='relative h-full text-lg max-w-prose mx-auto'
@@ -79,7 +81,7 @@ export default function RecipePage({ recipe }) {
               title={recipe.title}
             />
           </div>
-          <div className='mt-6 prose prose-indigo prose-lg text-blue-gray-500 mx-auto font-hind'>
+          <div className='mt-6 prose prose-indigo prose-lg dark:prose-dark dark:prose-lg-dark text-blue-gray-500 mx-auto font-hind'>
             <BlockContent blocks={recipe.content} serializers={serializers} />
           </div>
         </div>

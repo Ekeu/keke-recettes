@@ -32,10 +32,10 @@ export default function CardListRecipe({ recipe }) {
         className='block'
       >
         <span className='cursor-pointer'>
-          <p className='text-xl font-semibold font-hind text-blue-gray-800'>
+          <p className='text-xl font-semibold font-hind text-blue-gray-800 dark:text-white'>
             {title}
           </p>
-          <p className='mt-3 text-base font-hind text-blue-gray-500'>
+          <p className='mt-3 text-base font-hind text-blue-gray-500 dark:text-blue-gray-300'>
             {description}
           </p>
         </span>
@@ -52,10 +52,10 @@ export default function CardListRecipe({ recipe }) {
           </span>
         </div>
         <div className='ml-3'>
-          <p className='text-sm font-medium font-hind text-blue-gray-800'>
+          <p className='text-sm font-medium font-hind text-blue-gray-800 dark:text-white'>
             <span>{author?.name}</span>
           </p>
-          <div className='flex space-x-1 text-sm font-hind text-blue-gray-500'>
+          <div className='flex space-x-1 text-sm font-hind text-blue-gray-500 dark:text-blue-gray-300'>
             <time dateTime={_updatedAt}>{moment(_updatedAt).format('ll')}</time>
           </div>
         </div>

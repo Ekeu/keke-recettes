@@ -1,18 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Switch } from '@headlessui/react';
 import { SunIcon, MoonIcon } from '@heroicons/react/solid';
+import { useTheme } from 'next-themes';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function ToggleWithIcon() {
-  const [enabled, setEnabled] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [enabled, setEnabled] = useState();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      setEnabled(false);
+    } else {
+      setEnabled(true);
+    }
+  }, []);
+
+  const onChange = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+      setEnabled(true);
+    } else {
+      setTheme('dark');
+      setEnabled(false);
+    }
+  };
 
   return (
     <Switch
       checked={enabled}
-      onChange={setEnabled}
+      onChange={onChange}
       className={classNames(
         enabled
           ? 'bg-rose-600 focus:ring-rose-500'

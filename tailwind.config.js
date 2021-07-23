@@ -2,8 +2,9 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
+    typography: (theme) => ({}),
     extend: {
       fontFamily: {
         hind: ['Hind', 'sans-serif'],
@@ -32,10 +33,17 @@ module.exports = {
         0: '0ms',
         2000: '2000ms',
       },
+      typography: (theme) => ({
+        dark: {
+          css: {
+            color: 'white',
+          },
+        },
+      }),
     },
   },
   variants: {
-    extend: {},
+    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),

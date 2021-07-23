@@ -34,16 +34,16 @@ export default function Home({ recipes }) {
   return (
     <Layout>
       <main>
-        <div className='relative bg-white pt-4 pb-20 px-4 sm:px-6 lg:pt-6 lg:pb-28 lg:px-8'>
+        <div className='relative bg-white dark:bg-blue-gray-800 pt-4 pb-20 px-4 sm:px-6 lg:pt-6 lg:pb-28 lg:px-8'>
           <div className='absolute inset-0'>
-            <div className='bg-white h-1/3 sm:h-2/3' />
+            <div className='bg-white dark:bg-blue-gray-800 h-1/3 sm:h-2/3' />
           </div>
           <div className='relative max-w-7xl mx-auto'>
             <div className='text-center'>
-              <h2 className='text-3xl tracking-tight font-extrabold font-hind text-blue-gray-800 sm:text-4xl'>
+              <h2 className='text-3xl tracking-tight font-extrabold font-hind text-blue-gray-800 dark:text-white sm:text-4xl'>
                 Nos Recettes
               </h2>
-              <p className='mt-3 max-w-2xl mx-auto font-hind text-xl text-blue-gray-500 sm:mt-4'>
+              <p className='mt-3 max-w-2xl mx-auto font-hind text-xl text-blue-gray-500 sm:mt-4 dark:text-blue-gray-300'>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa
                 libero labore natus atque, ducimus sed.
               </p>

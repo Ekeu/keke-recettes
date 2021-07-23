@@ -21,9 +21,9 @@ export default function CardRecipe({ recipe }) {
       <div className='flex-shrink-0'>
         <img className='h-48 w-full object-cover' src={urlFor(coverImage).url()} alt={title} />
       </div>
-      <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
+      <div className='flex-1 bg-white dark:bg-blue-gray-700 p-6 flex flex-col justify-between'>
         <div className='flex-1'>
-          <p className='text-sm font-medium font-hind text-rose-500'>
+          <p className='text-sm font-medium font-hind text-rose-500 dark:text-white'>
             <span className='capitalize'>{category}</span>
           </p>
           <Link
@@ -32,10 +32,10 @@ export default function CardRecipe({ recipe }) {
             className='block mt-2'
           >
             <span className='cursor-pointer'>
-              <p className='text-xl font-semibold font-hind text-blue-gray-800'>
+              <p className='text-xl font-semibold font-hind text-blue-gray-800 dark:text-white'>
                 {title}
               </p>
-              <p className='mt-3 text-base text-blue-gray-500 font-hind'>
+              <p className='mt-3 text-base text-blue-gray-500 font-hind dark:text-blue-gray-200'>
                 {description}
               </p>
             </span>
@@ -53,10 +53,10 @@ export default function CardRecipe({ recipe }) {
             </span>
           </div>
           <div className='ml-3'>
-            <p className='text-sm font-medium font-hind text-blue-gray-800'>
+            <p className='text-sm font-medium font-hind text-blue-gray-800 dark:text-white'>
               <span className='hover:underline'>{author.name}</span>
             </p>
-            <div className='flex space-x-1 font-hind text-sm text-blue-gray-500'>
+            <div className='flex space-x-1 font-hind text-sm text-blue-gray-500 dark:text-blue-gray-200'>
               <time dateTime={_updatedAt}>
                 {moment(_updatedAt).format('ll')}
               </time>
