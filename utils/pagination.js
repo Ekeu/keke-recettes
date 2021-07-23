@@ -46,11 +46,11 @@ export const useGetRecipesPages = ({ recipes, filter }) => {
           ))}
         </GridContainer>
       ) : (
-        <GridContainer className='max-w-lg mx-auto gap-5 lg:grid-cols-3 lg:max-w-none'>
+        <div className='mt-12 grid max-w-lg mx-auto gap-5 lg:grid-cols-3 lg:max-w-none'>
           {paginatedRecipes.map((recipe) => (
             <CardRecipe key={recipe._id} recipe={recipe} />
           ))}
-        </GridContainer>
+        </div>
       );
     },
     (SWR, index) => {
